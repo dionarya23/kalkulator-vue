@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kalkulator Vue.js</title>
+	<style type="text/css">
+		body{ margin: 50px 550px;font-family: sans-serif;}
+		.button{text-decoration: none;color: black;width: 50px;padding: 5px 5px;margin: 4px;text-align: center;font-size: 24px;border-radius: 15px;display: inline;}
+		.blue{background-color: rgb(60, 189, 217)}
+		.input{height: 16px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+border: none;}
+	</style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<center><h1>Kakulator Untuk Para Bogeng :v</h1><br>
+</center>
+<div id="app" class="col-md-12">
+<input class="input" type="text" placeholder="Hitung Disini" v-model="inputnya" style="display: block" disabled="disabled">
+<button class="button blue" @click="tambah(1)">1</button>
+<button class="button blue" @click="tambah(2)">2</button>
+<button class="button blue" @click="tambah(3)">3</button>
+<button class="button blue" @click="operasi('+')">+</button>
+<br>
+<button class="button blue" @click="tambah(4)">4</button>
+<button class="button blue" @click="tambah(5)">5</button>
+<button class="button blue" @click="tambah(6)">6</button>
+<button class="button blue" @click="operasi('-')">-</button>
+<br>
+<button class="button blue" @click="tambah(7)">7</button>
+<button class="button blue" @click="tambah(8)">8</button>
+<button class="button blue" @click="tambah(9)">9</button>
+<button class="button blue" @click="operasi('*')">X</button>
+<br>
+<button class="button blue" @click="tambah(0)">0</button>
+<button class="button blue" @click="hitung()">=</button>
+<button class="button blue" @click="reset()">AC</button>
+<button class="button blue" @click="operasi('/')">:</button><br><br>
+<span>Note:Kalkulator ini tidak bisa menghitung angka negatif :v dalam belum sempurna<br>
+Tombol AC untuk reset ketika terjadi error</span>
+</div>
+
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+new Vue({
+	el: '#app',
+	data: {
+		inputnya   : '',
+		angka1     : '',
+		operasibro : '',
+		angka2     : '',
+		hasil      : ''
+	},
+	methods: {
+		tambah: function(angka){
+			if(this.angka1 == ''){
+				this.angka1  += angka;
+				this.inputnya = this.angka1;
+			}else if(this.operasibro != ''){
+				this.angka2   += angka;
+				this.inputnya += angka;
+			}else if(this.operasibro == ''){
+				this.angka1  += angka;
+				this.inputnya = this.angka1;
+			}
+		},
+		reset: function(){
+			this.inputnya   = '';
+			this.angka1     = '';
+			this.operasibro = '';
+			this.angka2     = '';
+			this.hasil      = '';
+		},
+		operasi: function(operate){
+
+			if(this.operasibro == '' && this.angka1 != ''){
+				this.operasibro = operate;
+				this.inputnya  += this.operasibro;
+			}else{
+				this.inputnya = "ERROR BOGENG :D";
+			}
+		},
+		hitung: function(){
+			angka1_new  = parseInt(this.angka1);
+			angka2_new  = parseInt(this.angka2);
+
+			switch(this.operasibro){
+				case '+':
+				this.hasil = angka1_new + angka2_new;
+				this.inputnya += ' = '+this.hasil;
+				break;
+
+				case '-':
+				this.hasil = angka1_new - angka2_new;
+				this.inputnya += ' = '+this.hasil;
+				break;
+
+				case '*':
+				this.hasil = angka1_new * angka2_new;
+				this.inputnya += ' = '+this.hasil;
+				break;
+
+				case '/':
+				this.hasil = angka1_new / angka2_new;
+				this.inputnya += ' = '+this.hasil;
+				break;
+			}
+
+		}
+	}
+});
+
+</script>
+</body>
+</html>
